@@ -11,14 +11,22 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
+      <v-btn v-if="!isLoggedIn"
         text
+        to='/admin'
       >
         <span class="mr-2">Admin</span>
         <v-icon>mdi-lock-open</v-icon>
       </v-btn>
+
+      <v-btn v-if="isLoggedIn"
+        text
+        @click='logout'
+      >
+        <span class="mr-2">Salir</span>
+        <v-icon>mdi-lock-open</v-icon>
+      </v-btn>
+
     </v-app-bar>
 
     <v-main>
@@ -28,12 +36,25 @@
 </template>
 
 <script>
-
+import firebase from 'firebase';
+import { mapActions, mapState } from 'vuex'
 export default {
   name: 'App',  
 
-  data: () => ({
-    //
-  }),
+  methods:{
+    ...mapActions(['setCurrentUser']),
+     logout(){
+      firebase.auth().signOut().then(()=>{
+        this.setCurrentUser(null)
+        this.$router.push('/')
+      })
+    }
+  },
+  computed:{
+    ...mapState(['currentUser']),
+    isLoggedIn(){
+      return this.currentUser ? true : false
+    }
+  }
 };
 </script>
