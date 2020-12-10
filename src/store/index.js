@@ -22,6 +22,24 @@ export default new Vuex.Store({
            .then((resp)=>{
              commit("GET_COURSES", resp.data)
            })
+    },
+    deleteCourse({dispatch},id){
+      axios.delete(`https://us-central1-ottoklauss-5927c.cloudfunctions.net/api/courses/${id}`)
+           .then(()=>{
+             dispatch("getCourses")
+           })
+    },
+    createCourse({dispatch}, course){
+      axios.post('https://us-central1-ottoklauss-5927c.cloudfunctions.net/api/courses', course)
+           .then(()=>{
+              dispatch("getCourses")
+            })
+    },
+    updateCourse({dispatch}, course){
+      axios.put(`https://us-central1-ottoklauss-5927c.cloudfunctions.net/api/courses/${course.id}`, course)
+          .then(()=>{
+              dispatch("getCourses")
+            })
     }
   },
   modules: {
