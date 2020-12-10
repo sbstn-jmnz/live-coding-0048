@@ -2,12 +2,15 @@
   <v-app>
     <v-app-bar
       app
-      color="primary"
+      color="dark"
       dark
     >
-      <div class="d-flex align-center">
-       <h2>Live Coding Music Academy</h2>
-      </div>
+    <div class="d-flex align-center">
+      <h2><router-link to='/'>
+          Live Coding Music Academy
+      </router-link>
+      </h2>
+    </div>
 
       <v-spacer></v-spacer>
 
